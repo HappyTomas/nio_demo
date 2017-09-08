@@ -1,4 +1,4 @@
-package me.zhongmingmao.channel.mapped;
+package me.zhongmingmao.nio.mapped;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class MappedByteBufferDemo {
     
     public static void main(String[] args) {
-        String fileName = "/tmp/hello.txt";
+        String fileName = "file/MappedByteBufferDemo.txt";
         long byteBufferRead = byteBufferRead(fileName);
         long mappedByteBufferRead = mappedByteBufferRead(fileName);
         
@@ -19,15 +19,15 @@ public class MappedByteBufferDemo {
                         "byteBufferRead/mappedByteBufferRead=%s",
                 byteBufferRead, mappedByteBufferRead, byteBufferRead / mappedByteBufferRead));
         /*
-        /tmp/hello.txt为100M时
+        file/MappedByteBufferDemo.txt为100M时
         输出：
         byteBufferRead=427000000ns , mappedByteBufferRead=6000000ns , byteBufferRead/mappedByteBufferRead=71
         
-        /tmp/hello.txt为500M时
+        file/MappedByteBufferDemo.txt为500M时
         输出：
         byteBufferRead=3292000000ns , mappedByteBufferRead=3000000ns , byteBufferRead/mappedByteBufferRead=1097
         
-        /tmp/hello.txt为800M时
+        file/MappedByteBufferDemo.txt为800M时
         输出：
         byteBufferRead=4681000000ns , mappedByteBufferRead=3000000ns , byteBufferRead/mappedByteBufferRead=1560
          */

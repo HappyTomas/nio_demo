@@ -1,4 +1,4 @@
-package me.zhongmingmao.channel.socket;
+package me.zhongmingmao.nio.socket;
 
 import java.io.IOException;
 import java.io.InputStream;

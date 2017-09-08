@@ -1,11 +1,10 @@
-package me.zhongmingmao.channel.socket;
+package me.zhongmingmao.nio.socket;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
-import java.util.Iterator;
 
 public class NioServer extends AbstractNioComponent {
     
@@ -31,33 +30,7 @@ public class NioServer extends AbstractNioComponent {
             // OP_READ : Channel有数据可读，读就绪
             // OP_WRITE : Channel等待写入数据，写就绪
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            
-            while (true) {
-                // 从上次调用select方法后有多少Channel变成就绪状态
-                if (selector.select(TIMEOUT) == 0) {
-                    System.out.println("Server Waiting...");
-                    continue;
-                }
-                Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
-                while (iterator.hasNext()) {
-                    SelectionKey key = iterator.next();
-                    if (key.isAcceptable()) {
-                        handleAccept(key);
-                    }
-                    if (key.isConnectable()) {
-                        handleConnect(key);
-                    }
-                    if (key.isReadable()) {
-                        handleRead(key);
-                    }
-                    if (key.isWritable() && key.isValid()) {
-                        handleWrite(key);
-                    }
-                    // selector不会自动清除SelectionKey实例，因此必须在处理完Channel后手动移除SelectionKey实例
-                    // 以便在下次Channel变成就绪状态时，selector会再次将SelectionKey实例放入Set<SelectionKey>中
-                    iterator.remove();
-                }
-            }
+            handle(selector);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

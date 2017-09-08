@@ -1,4 +1,4 @@
-package me.zhongmingmao.channel.datagram;
+package me.zhongmingmao.nio.datagram;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
